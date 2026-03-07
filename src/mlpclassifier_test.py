@@ -7,9 +7,9 @@ class MLPClassificationModel:
             hidden_layer_sizes=hidden_layer_sizes,
             learning_rate_init=learning_rate_init,
             max_iter=max_iter,
-            solver="sgd",              # <--- HERE
-            momentum=0.9,              # <--- HERE
-            learning_rate="adaptive",  # <--- HERE
+            solver="sgd",              # <---Now using sgd b/c "adam" gave all same answers for all iteration
+            momentum=0.9,              
+            learning_rate="adaptive",  
             random_state=42
         )
 
