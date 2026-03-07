@@ -9,15 +9,15 @@ class DataPreprocessing:
 
     def load_data(self, path):
         # Load raw data
-        data = pd.read_csv(path, sep="\t", header=None).dropna()
-        print(data.head())
+        df = pd.read_csv(path, sep="\t", header=None).dropna()
+        print(df.head())  # <-- print BEFORE converting to numpy
 
         # Convert to numpy
-        data = data.to_numpy()
+        data = df.to_numpy()
 
-    
+        # ---------------------------------------------------------
         # 1. TRAIN / VALIDATION / TEST SPLIT
-    
+        # ---------------------------------------------------------
         train_validation, test = train_test_split(
             data, test_size=0.2, random_state=12
         )
@@ -26,16 +26,16 @@ class DataPreprocessing:
             train_validation, test_size=0.2, random_state=99
         )
 
-     
+        # ---------------------------------------------------------
         # 2. CHECK CLASS DISTRIBUTION
-        
+        # ---------------------------------------------------------
         print("Train:", set(train[:, -1]))
         print("Validation:", set(validation[:, -1]))
         print("Test:", set(test[:, -1]))
 
-       
+        # ---------------------------------------------------------
         # 3. SEPARATE FEATURES AND LABELS
-     
+        # ---------------------------------------------------------
         X_train = train[:, :-1]
         y_train = train[:, -1]
 
@@ -45,18 +45,18 @@ class DataPreprocessing:
         X_test = test[:, :-1]
         y_test = test[:, -1]
 
-     
+        # ---------------------------------------------------------
         # 4. SCALE USING ONLY TRAINING DATA
-     
+        # ---------------------------------------------------------
         scaler = StandardScaler().fit(X_train)
 
         X_train_scaled = scaler.transform(X_train)
         X_val_scaled   = scaler.transform(X_val)
         X_test_scaled  = scaler.transform(X_test)
 
-     
+        # ---------------------------------------------------------
         # 5. RETURN EVERYTHING CLEANLY
-      
+        # ---------------------------------------------------------
         return {
             "X_train": X_train,
             "y_train": y_train,
@@ -70,7 +70,6 @@ class DataPreprocessing:
             "scaler": scaler,
             "raw_data": data
         }
-    
 
 '''
 ***How to Use: 

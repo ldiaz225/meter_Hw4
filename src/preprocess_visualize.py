@@ -11,14 +11,17 @@ class DataVisualizer:
         data: numpy array where last column is the label
         """
         self.data = data
-        self.X = data[:, :-1]
-        self.y = data[:, -1]
+        self.X = data[:, :-1]      # features
+        self.y = data[:, -1]       # labels
 
         # Scale features immediately
         self.scaler = StandardScaler()
         self.X_scaled = self.scaler.fit_transform(self.X)
 
-def plot_heatmap(self):
+    # ---------------------------------------------------------
+    # 1. Correlation Heatmap
+    # ---------------------------------------------------------
+    def plot_heatmap(self):
         plt.figure(figsize=(14, 10))
         sns.heatmap(
             pd.DataFrame(self.X_scaled).corr(),
@@ -29,7 +32,10 @@ def plot_heatmap(self):
         plt.tight_layout()
         plt.show()
 
-def plot_umap(self, n_neighbors=30, min_dist=0.1, metric="euclidean"):
+    # ---------------------------------------------------------
+    # 2. UMAP Projection
+    # ---------------------------------------------------------
+    def plot_umap(self, n_neighbors=30, min_dist=0.1, metric="euclidean"):
         umap_model = umap.UMAP(
             n_neighbors=n_neighbors,
             min_dist=min_dist,
@@ -54,14 +60,3 @@ def plot_umap(self, n_neighbors=30, min_dist=0.1, metric="euclidean"):
         plt.ylabel("UMAP-2")
         plt.tight_layout()
         plt.show()
-
-'''
-***How to use: 
-
-data = preprocessor.load_data("data/Meter_A.txt")
-
-viz = DataVisualizer(data)
-
-viz.plot_heatmap()
-viz.plot_umap()
-'''

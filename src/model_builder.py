@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.metrics import accuracy_score
 
 # Importing the parent: DataPreprocessing class from data_preprocess.py
-from src.data_preprocess import DataPreprocessing 
+from meter_Hw4.src.data_preprocess import DataPreprocessing 
 
 
 class ModelBuilder(DataPreprocessing):
